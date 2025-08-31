@@ -1,17 +1,32 @@
 pkgname=(ncurses ncurses-compat-libs)
 pkgbase=ncurses
 pkgver=6.5_20250816
-pkgrel=1
+pkgrel=2
 pkgdesc="System V Release 4.0 curses emulation library"
 arch=('x86_64')
 url="https://www.gnu.org/software/ncurses/"
 license=('MIT-open-group')
-depends=('glibc' 'gcc-libs')
-source=(https://invisible-mirror.net/archives/ncurses/current/${pkgbase}-${pkgver/_/-}.tgz)
-sha256sums=(300008d64f5f066c8757d23f753a936e8b67d7e7302d19682ef5a4d90cfbd3b4)
+depends=(
+    'glibc'
+    'gcc-libs'
+)
+makedepends=('autoconf-archive')
+source=(https://invisible-mirror.net/archives/ncurses/current/${pkgbase}-${pkgver/_/-}.tgz
+    ncurses-6.3-libs.patch
+    ncurses-6.3-pkgconfig.patch)
+sha256sums=(300008d64f5f066c8757d23f753a936e8b67d7e7302d19682ef5a4d90cfbd3b4
+    dc4261b6642058a9df1c0945e2409b24f84673ddc3a665d8a15ed3580e51ee25
+    b8544a607dfbeffaba2b087f03b57ed1fa81286afca25df65f61b04b5f3b3738)
 
 prepare() {
     cd ${pkgbase}-${pkgver/_/-}
+
+    # do not link against test libraries
+    patch -Np1 -i ${srcdir}/ncurses-6.3-libs.patch
+
+    # do not leak build-time LDFLAGS into the pkgconfig files:
+    # https://bugs.archlinux.org/task/68523
+    patch -Np1 -i ${srcdir}/ncurses-6.3-pkgconfig.patch
 
     mkdir  build compat-libs-build
 }
