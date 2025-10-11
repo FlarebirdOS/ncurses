@@ -1,7 +1,10 @@
-pkgname=(ncurses ncurses-compat-libs)
+pkgname=(
+    ncurses
+    ncurses-compat-libs
+)
 pkgbase=ncurses
-pkgver=6.5_20250816
-pkgrel=2
+pkgver=6.5_20251010
+pkgrel=3
 pkgdesc="System V Release 4.0 curses emulation library"
 arch=('x86_64')
 url="https://www.gnu.org/software/ncurses/"
@@ -14,8 +17,8 @@ makedepends=('autoconf-archive')
 source=(https://invisible-mirror.net/archives/ncurses/current/${pkgbase}-${pkgver/_/-}.tgz
     ncurses-6.3-libs.patch
     ncurses-6.3-pkgconfig.patch)
-sha256sums=(300008d64f5f066c8757d23f753a936e8b67d7e7302d19682ef5a4d90cfbd3b4
-    dc4261b6642058a9df1c0945e2409b24f84673ddc3a665d8a15ed3580e51ee25
+sha256sums=(a7a072f72aa77d18ef16133b87347bfb52c7b2890a47cd187dc31b9955a0d85d
+    b4d71e45b59ef0d8101d35c856056bfb80192f742a2de4fb32e5299a49a081da
     b8544a607dfbeffaba2b087f03b57ed1fa81286afca25df65f61b04b5f3b3738)
 
 prepare() {
